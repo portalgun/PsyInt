@@ -1,0 +1,66 @@
+Build psychtoolbox psychophiscal experiments from plaintext.
+A plugin for portalgun/StimViewer.
+
+Example configuration for 2IFC experiment:
+#+begin_src
+# DSP2.cfg
+key=limited
+draw:
+    bg
+    ch
+    counter
+0
+    expStart
+        t=0
+        load=10
+        hook=key_start
+    load
+        modt=10
+        hook=presentLoading
+        load=10
+    break
+        modt=10
+        reset=bg
+        time=2
+    countDown
+        modt=10
+        hook=presentCountDown(3,1) # count,num
+1
+    iti
+        time=0.25
+    stm
+        stm=1
+        reset=stm
+        draw=+stm
+        close=stm
+2
+    isi
+        time=0.25
+    stm
+        reset=stm
+        draw=+stm
+        close=stm
+    rsp
+        time=key
+        key=2AFC_DSP_rsp
+#+end_src
+Configurations are divided by indentation level.
+Default configurations for all (sub)intervals and declaration of Intervals is done ate the highest level.
+Anything that is in the highest indentation level that is not numbered is treated as a default.
+Intervals are declared by an integer.
+Subintervals are delcared on the second level.
+Names of subintervals are arbitrary and do not affect the experiment; they are there for convenience.
+The 0 interval represents stuff you might do pre-interval (load stimuli, present a break etc).
+
+When StimViewer is connected to
+
+'t' and 'modt' are limit execution of subintervals to  t'th trial number or every modt'th trial.
+
+When 'key' is declared in a subinterval, a 'Keys' key-defintion is loaded, providing what keys and bindings are avaialbe during that sub interval.
+In the example above, the 'limited' defintion provides bindings that execute things like display help info, or exit the experiment.
+See my Keys package for more info.
+
+'time' represents the total time in seconds a subinterval should last.
+
+'hook' simply executes some arbitrary function at the end of the subinterval.
+
