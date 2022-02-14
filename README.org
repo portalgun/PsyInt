@@ -1,9 +1,12 @@
+* PsyInt
+
 Build psychtoolbox psychophiscal experiments from plaintext.
 A plugin for portalgun/StimViewer.
 
 Example configuration for 2IFC experiment:
 #+begin_src
 # DSP2.cfg
+
 key=limited
 draw:
     bg
